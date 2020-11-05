@@ -73,10 +73,11 @@ icons.forEach((icon) => {
     // destrutturo gli oggetti per ricavare la proprietò che mi interessa
     const {name, prefix, type, family} = icon;
     console.log(name, prefix, type, family);
-    // stampo in pagina le icone
+    // stampo in pagina le icone ed il loro nome
     $("#container").append(`
-        <div>
+        <div class="icon-style">
             <i class="${family} ${prefix}${name} fa-2x"></i>
+            <span>${name}</span>
         </div>
         `)
 });
