@@ -122,24 +122,21 @@ $('#icons-filter').change(() => {
 });
 
 
-
 //  ------------------funzioni generali -----------------
-
 
 // stampo le icone
 function print(element) {
     // destrutturo e recupero le chiavi name, prefix, family e type
     const {name, prefix, family, type} = element;
-    // recupero il colore corrispondere al tipo
     // recupero l'indice del tipo dell'icona all'interno dell'array dei tipi
-    const type_index = typeOfIcon.indexOf(type);
+    const positionType = typeOfIcon.indexOf(type);
     // recupero il colore corrispondente al tipo dell'icona corrente
-    const icon_color = colors[type_index];
+    const colorIcon = colors[positionType];
 
     // appendo in pagina utilizzando TEMPLATE LITERAL
     $('#container').append(`
         <div class="icon-style">
-            <i class="${family} ${prefix}${name} fa-2x" style="color:${icon_color}"></i>
+            <i class="${family} ${prefix}${name} fa-2x" style="color:${colorIcon}"></i>
             <span>${name}</span>
         </div>
     `);
@@ -147,7 +144,7 @@ function print(element) {
 
 // funzione per scorrere gli oggetti - da richiamare nell If quando l'utente seleziona tutte le icone
 printAll(icons);
-
+// stampa in pagina al caricamento
 function printAll(element) {
     element.forEach((icon) => {
         print(icon);
