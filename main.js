@@ -9,6 +9,7 @@
 
 $( document ).ready(function() {
 
+//                ---------- MILESTONE 1 -------------
 // creo un array di oggetti
 const icons = [
     {
@@ -76,14 +77,35 @@ icons.forEach((icon) => {
     // stampo in pagina le icone ed il loro nome
     $("#container").append(`
         <div class="icon-style">
-            <i class="${family} ${prefix}${name} fa-2x"></i>
+            <i class="${family} ${prefix}${name} fa-2x" style="color:${colorIcon}"></i>
             <span>${name}</span>
         </div>
         `)
 });
 
 
+//                ---------- MILESTONE 2 -------------
 
+// creo una costante per definire un array di colori da associare ai diversi tipi di icona
+const colors = ["red", "green", "blue"];
+
+// con il forEach estraggo i type delle icone in un nuovo array
+const typesOfIcon = [];
+icons.forEach((element) => {
+    // destrutturo l'elemento corrente per ricavare la chiave type e pusho nel nuovo array il risultato verificando la presenza
+    const {type} = element;
+    if (!typesOfIcon.includes(type)) {
+        typesOfIcon.push(type);
+    }
+});
+console.log(typesOfIcon);
+
+// function colorIcon(obj) {
+// 
+//     const indexType = typesOfIcon.indexOf(type);
+//
+//     const colorIcon = colors[indexType];
+// }
 
 
 
