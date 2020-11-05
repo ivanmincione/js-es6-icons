@@ -68,57 +68,91 @@ const icons = [
     },
 ];
 
-// visualizzo le icone in pagina.
-// scorro l'array Utilizzando il ciclo forEach
-icons.forEach((icon) => {
-    // destrutturo gli oggetti per ricavare la proprietò che mi interessa
-    const {name, prefix, type, family} = icon;
-    console.log(name, prefix, type, family);
-    // stampo in pagina le icone ed il loro nome
-    $("#container").append(`
-        <div class="icon-style">
-            <i class="${family} ${prefix}${name} fa-2x" style="color:${colorIcon}"></i>
-            <span>${name}</span>
-        </div>
-        `)
-});
-
 
 //                ---------- MILESTONE 2 -------------
 
 // creo una costante per definire un array di colori da associare ai diversi tipi di icona
-const colors = ["red", "green", "blue"];
+const colors = ['red', 'green', 'yellow'];
 
 // con il forEach estraggo i type delle icone in un nuovo array
-const typesOfIcon = [];
-icons.forEach((element) => {
+const typeOfIcon = [];
+
+icons.forEach((icon) => {
     // destrutturo l'elemento corrente per ricavare la chiave type e pusho nel nuovo array il risultato verificando la presenza
-    const {type} = element;
-    if (!typesOfIcon.includes(type)) {
-        typesOfIcon.push(type);
+    const {type} = icon;
+    if(!typeOfIcon.includes(type)) {
+        typeOfIcon.push(type);
     }
 });
-console.log(typesOfIcon);
+console.log(typeOfIcon);
 
-// function colorIcon(obj) {
-// 
-//     const indexType = typesOfIcon.indexOf(type);
-//
-//     const colorIcon = colors[indexType];
-// }
+//           -------------- MILESTONE 3 ------------
+
+// scorro tutti i type di icona
+typeOfIcon.forEach((type) => {
+    // per ogni tipo di icona aggiungo una option alla select
+    $('#icons-filter').append(`
+        <option value="${type}">${type}</option>
+    `);
+});
+
+// utilizzo CHANGE per intercettare quando l'utente seleziona un type diverso
+$('#icons-filter').change(() => {
+    // utilizzo VAL per recuperare il type cliccato
+    const selectType = $('#icons-filter').val();
+
+    // svuoto il contenitore delle icone
+    $('#container').empty();
+
+    // verifico che l'utente seleziona un type diverso da ("")
+    if(selectType != '') {
+        // recupero le icone corrispondeti al tipo scelto dall'utente
+        const userChoise = icons.filter((icon) => {
+            return selectType == icon.type;
+        });
+        // stampo con la funzione
+        userChoise.forEach((icon) => {
+            print(icon);
+        });
+    } else {
+        // visualizzo tutte le icone
+        printAll(icons);
+    }
+
+});
 
 
 
+//  ------------------funzioni generali -----------------
 
 
+// stampo le icone
+function print(element) {
+    // destrutturo e recupero le chiavi name, prefix, family e type
+    const {name, prefix, family, type} = element;
+    // recupero il colore corrispondere al tipo
+    // recupero l'indice del tipo dell'icona all'interno dell'array dei tipi
+    const type_index = typeOfIcon.indexOf(type);
+    // recupero il colore corrispondente al tipo dell'icona corrente
+    const icon_color = colors[type_index];
 
+    // appendo in pagina utilizzando TEMPLATE LITERAL
+    $('#container').append(`
+        <div class="icon-style">
+            <i class="${family} ${prefix}${name} fa-2x" style="color:${icon_color}"></i>
+            <span>${name}</span>
+        </div>
+    `);
+}
 
+// funzione per scorrere gli oggetti - da richiamare nell If quando l'utente seleziona tutte le icone
+printAll(icons);
 
-
-
-
-
-
+function printAll(element) {
+    element.forEach((icon) => {
+        print(icon);
+    });
+}
 
 
 
